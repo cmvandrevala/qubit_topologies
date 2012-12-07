@@ -1,23 +1,23 @@
 
 % Initial Configuration
 
-N = 20;               % Size of Grid
-T = rand()*5;         % Set a Temperature
-steps = 100;          % Total Number of Time Steps to Evolve the System
-iterations = 100;     % Number of Iterations Within Ising Model
+N = 100;              % Size of Grid (NxN)
+steps = 100;          % Total Number of Simulations to Perform
+iterations = 100;     % Number of Time Steps Within Ising Model
 
-Ms = [steps];         % Magnetic Field at Each Time Step
-Ts = [steps];         % Temperature at Each Time Step
-Ns = [steps];         % Total Number of Particles at Each Time Step
-Es = [steps];         % Total Energy at Each Time Step
+Ms = [];         % Magnetic Field Per Site of Each Simulation
+Ts = [];         % Temperature of Each Simulation
+Ns = [];         % Total Number of Sites of Each Simulation
+Es = [];         % Energy Per Site of Each Simulation
 
+
+% Perform the Set of Simulations
 
 for i=1:steps,
 
-  % Perform a Time Step
+  T = rand()*5;
   [M, E] = ising(N, T, iterations);
 
-  % Record the results
   Ms = [Ms M/(N^2)];
   Es = [Es E/(N^2)];
   Ns = [Ns N];
@@ -25,21 +25,23 @@ for i=1:steps,
 
 end
 
+% Create Plots
 
-% Figure Generation
-% Energy per site, versus temperature
-plot(Ts, Es);
-ylabel('energy per site');
-xlabel('temperature');
+subplot(1,3,1);
+plot(Ts, Es, '+');
+ylabel("Energy Per Site (J)");
+xlabel("Temperature (K)");
+title("Energy Per Site vs. Temperature");
 
-% Magnetization per site, versus temperature
-plot(Ts, Ms);
-ylabel('magnetization per site');
-xlabel('temperature');
-ylim([-1.1 1.1]);
+subplot(1,3,2);
+plot(Ts, Ms, '+');
+ylabel("Magnetization Per Site");
+xlabel("Temperature");
+title("Magnetization Per Site vs. Temperature");
 
-% Magnetization per site, versus Energy per site
-plot(Es, Ms);
-xlabel('Energy per site');
-ylabel('Magnetization per site');
+subplot(1,3,3);
+plot(Es, Ms, 'o');
+xlabel("Energy Per Site");
+ylabel("Magnetization Per Site");
+title("Magnetization Per Site vs. Energy Per Site");
 
