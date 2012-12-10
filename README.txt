@@ -24,5 +24,5 @@ code.  They can be changed within each "____Ising.m" file.
   |     |
   /\   \/
   |     |
-  --->---
+  ---<---
   "Double" Klein Bottle
