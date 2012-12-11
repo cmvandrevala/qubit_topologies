@@ -3,9 +3,9 @@ clf
 
 % Initial Configuration
 
-N = 50;              % Size of Grid (NxN)
-steps = 1000;         % Total Number of Simulations to Perform
-iterations = 2500;     % Number of Potential Spin Flips Within Ising Model
+N = 100;              % Size of Grid (NxN)
+steps = 100;         % Total Number of Simulations to Perform
+iterations = 100;     % Number of Potential Spin Flips Within Ising Model
 
 % Toroidal Topology 
 % Periodic Boundary Conditions at All Edges

@@ -26,3 +26,9 @@ code.  They can be changed within each "____Ising.m" file.
   |     |
   ---<---
   "Double" Klein Bottle
+
+
+
+After running the simulations a few times, I have come to the conclusion that the 
+topology of the system (i.e. the boundary conditions) do not greatly influence the
+magnetization or energy curves that we see.
