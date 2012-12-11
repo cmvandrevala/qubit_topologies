@@ -72,7 +72,7 @@ xlabel("Temperature");
 title("Magnetization Per Site vs. Temperature");
 
 subplot(2,2,3);
-plot(TorEs, TorMs, 'o', KleinEs, KleinMs, 'x', TwistTs, TwistMs, '+');
+plot(TorEs, TorMs, 'o', KleinEs, KleinMs, 'x', TwistEs, TwistMs, '+');
 xlabel("Energy Per Site");
 ylabel("Magnetization Per Site");
 %legend("Toroidal", "Klein Bottle", "Twisted Klein Bottle");
