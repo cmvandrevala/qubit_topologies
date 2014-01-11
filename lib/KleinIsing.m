@@ -1,15 +1,13 @@
-function [M, E] = KleinIsing(N,T,steps)
+function [total_magnetic_field, total_energy] = KleinIsing(N,T,steps)
 
-J = 1; % Strength of Interaction in Joules
-k = 1; % Joules Per Kelvin
+% Declare Constants
+interaction_strength = 1;
+boltzmans_constant = 1;
 
-Ms = [];
-Es = [];
-
-%% Generate a Random Initial Configuration
+% Generate a Random Initial Configuration
 grid = (rand(N) > 0.5)*2 - 1;
 
-%% Evolve the system for a fixed number of steps
+% Evolve the system for a fixed number of steps
 for i=1:steps,
 
   % Calculate the number of neighbors of each cell
@@ -29,10 +27,10 @@ for i=1:steps,
   end
 
   % Calculate the change in energy of flipping a spin
-  DeltaE = 2 * J * (grid .* neighbors);
+  DeltaE = 2 * interaction_strength * (grid .* neighbors);
 
   % Calculate the transition probabilities
-  p_trans = exp(-DeltaE/(k * T));
+  p_trans = exp(-DeltaE/(boltzmans_constant * T));
 
   % Decide which transitions will occur
   transitions = (rand(N) < p_trans ).*(rand(N) < 0.1) * -2 + 1;
@@ -41,7 +39,7 @@ for i=1:steps,
   grid = grid .* transitions;
 
   % Sum up our variables of interest
-  M = sum(sum(grid));
-  E = -sum(sum(DeltaE))/2;
+  total_magnetic_field = sum(sum(grid));
+  total_energy = -sum(sum(DeltaE))/2;
 
 end

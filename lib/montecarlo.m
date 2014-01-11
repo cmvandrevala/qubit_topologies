@@ -31,7 +31,7 @@ twist_energy_per_site = [];
 % Perform the Set of Simulations
 for count = 1:number_of_random_temperatures_to_test,
 
-  temperature = rand()*5;
+  temperature = determine_temperature;
   
   [total_magnetic_field, total_energy] = TorIsing(cells_on_side_of_grid, temperature, number_of_potential_spin_flips);
   toroid_magnetic_field_per_site = [toroid_magnetic_field_per_site total_magnetic_field/number_of_cells];

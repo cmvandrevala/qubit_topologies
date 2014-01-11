@@ -3,9 +3,6 @@ function [M, E] = TorIsing(N,T,steps)
 J = 1; % Strength of Interaction in Joules
 k = 1; % Joules Per Kelvin
 
-Ms = [];
-Es = [];
-
 %% Generate a Random Initial Configuration
 grid = (rand(N) > 0.5)*2 - 1;
 
