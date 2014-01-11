@@ -2,77 +2,72 @@ clear all
 clf
 
 % Initial Configuration
+cells_on_side_of_grid = 10;
+number_of_random_temperatures_to_test = 10;
+number_of_potential_spin_flips = 10;
 
-N = 10;              % Size of Grid (NxN)
-steps = 10;         % Total Number of Simulations to Perform
-iterations = 10;     % Number of Potential Spin Flips Within Ising Model
+% Pre-calculate Values
+number_of_cells = cells_on_side_of_grid^2;
 
-% Toroidal Topology 
+% Toroidal Topology
 % Periodic Boundary Conditions at All Edges
-TorMs = [];         % Magnetic Field Per Site of Each Simulation
-TorTs = [];         % Temperature of Each Simulation
-TorNs = [];         % Total Number of Sites of Each Simulation
-TorEs = [];         % Energy Per Site of Each Simulation
+toroid_magnetic_field_per_site = [];
+toroid_temperature = [];
+toroid_energy_per_site = [];
 
 % Klein Bottle Topology
 % Periodic Boundary Conditions on Sides, Anti-Periodic on Top and Bottom
-KleinMs = [];         % Magnetic Field Per Site of Each Simulation
-KleinTs = [];         % Temperature of Each Simulation
-KleinNs = [];         % Total Number of Sites of Each Simulation
-KleinEs = [];         % Energy Per Site of Each Simulation
+klein_magnetic_field_per_site = [];
+klein_temperature = [];
+klein_energy_per_site = [];
 
-% "Double Twist" Klein Bottle Topology (Can't Think of the Real Name)
+% "Double Twist" Klein Bottle Topology
 % Anti-Periodic Boundary Conditions on All Edges
-TwistMs = [];         % Magnetic Field Per Site of Each Simulation
-TwistTs = [];         % Temperature of Each Simulation
-TwistNs = [];         % Total Number of Sites of Each Simulation
-TwistEs = [];         % Energy Per Site of Each Simulation
+twist_magnetic_field_per_site = [];
+twist_temperature = [];
+twist_energy_per_site = [];
 
 
 % Perform the Set of Simulations
+for count = 1:number_of_random_temperatures_to_test,
 
-for i=1:steps,
-
-  T = rand()*5;
+  temperature = rand()*5;
   
-  [M, E] = TorIsing(N, T, iterations);
-  TorMs = [TorMs M/(N^2)];
-  TorEs = [TorEs E/(N^2)];
-  TorNs = [TorNs N];
-  TorTs = [TorTs T];
+  [total_magnetic_field, total_energy] = TorIsing(cells_on_side_of_grid, temperature, number_of_potential_spin_flips);
+  toroid_magnetic_field_per_site = [toroid_magnetic_field_per_site total_magnetic_field/number_of_cells];
+  toroid_energy_per_site = [toroid_energy_per_site total_energy/number_of_cells];
+  toroid_temperature = [toroid_temperature temperature];
   
-  [M, E] = KleinIsing(N, T, iterations);
-  KleinMs = [KleinMs M/(N^2)];
-  KleinEs = [KleinEs E/(N^2)];
-  KleinNs = [KleinNs N];
-  KleinTs = [KleinTs T];
+  [total_magnetic_field, total_energy] = KleinIsing(cells_on_side_of_grid, temperature, number_of_potential_spin_flips);
+  klein_magnetic_field_per_site = [klein_magnetic_field_per_site total_magnetic_field/number_of_cells];
+  klein_energy_per_site = [klein_energy_per_site total_energy/number_of_cells];
+  klein_temperature = [klein_temperature temperature];
   
-  [M, E] = TwistIsing(N, T, iterations);
-  TwistMs = [TwistMs M/(N^2)];
-  TwistEs = [TwistEs E/(N^2)];
-  TwistNs = [TwistNs N];
-  TwistTs = [TwistTs T];
+  [total_magnetic_field, total_energy] = TwistIsing(cells_on_side_of_grid, temperature, number_of_potential_spin_flips);
+  twist_magnetic_field_per_site = [twist_magnetic_field_per_site total_magnetic_field/number_of_cells];
+  twist_energy_per_site = [twist_energy_per_site total_energy/number_of_cells];
+  twist_temperature = [twist_temperature temperature];
 
 end
 
 % Create Plots
 
 subplot(2,2,1);
-plot(TorTs, TorEs, 'o', KleinTs, KleinEs, 'x', TwistTs, TwistEs, '+');
+plot(toroid_temperature, toroid_energy_per_site, 'o', klein_temperature, klein_energy_per_site, 'x', twist_temperature, twist_energy_per_site, '+');
 ylabel("Energy Per Site (J)");
 xlabel("Temperature (K)");
 %legend("Toroidal", "Klein Bottle", "Twisted Klein Bottle");
 title("Energy Per Site vs. Temperature");
 
 subplot(2,2,2);
-plot(TorTs, TorMs, 'o', KleinTs, KleinMs, 'x', TwistTs, TwistMs, '+');
+plot(toroid_temperature, toroid_magnetic_field_per_site, 'o', klein_temperature, klein_magnetic_field_per_site, 'x', twist_temperature, twist_magnetic_field_per_site, '+');
 ylabel("Magnetization Per Site");
 xlabel("Temperature");
 %legend("Toroidal", "Klein Bottle", "Twisted Klein Bottle");
 title("Magnetization Per Site vs. Temperature");
 
 subplot(2,2,3);
-plot(TorEs, TorMs, 'o', KleinEs, KleinMs, 'x', TwistEs, TwistMs, '+');
+plot(toroid_energy_per_site, toroid_magnetic_field_per_site, 'o', klein_energy_per_site, klein_magnetic_field_per_site, 'x', twist_energy_per_site, twist_magnetic_field_per_site, '+');
 xlabel("Energy Per Site");
 ylabel("Magnetization Per Site");
 %legend("Toroidal", "Klein Bottle", "Twisted Klein Bottle");
