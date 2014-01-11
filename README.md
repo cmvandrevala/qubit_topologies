@@ -5,30 +5,6 @@ Background
 ----------
 This is a simple Matlab code to simulate the Ising model on a toroid, a Klein bottle, and a "double Klein bottle".  This code is based heavily off the analysis and report done by Tobin Fricke (2006).  A pdf copy of the report is saved along with the code for reference.
 
-Picture of Each Setup
----------------------
-
---->---
-|     |
-^     ^
-|     |
---->---
-Toroid
-
----<---
-|     |
-^     ^
-|     |
---->---
-Klein Bottle
-
---->---
-|     |
-/\   \/
-|     |
----<---
-"Double" Klein Bottle
-
 
 Output
 ------
