@@ -1,5 +1,6 @@
 function temperature = determine_temperature
 
-	temperature = rand()*5;
+	declare_parameters
+	temperature = maximum_temperature*rand();
 
 end

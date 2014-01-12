@@ -1,34 +1,30 @@
-function [M, E] = TorIsing(N,T,steps)
+function [total_magnetic_field, total_energy] = TorIsing(temperature)
 
-J = 1; % Strength of Interaction in Joules
-k = 1; % Joules Per Kelvin
+declare_parameters
 
 %% Generate a Random Initial Configuration
-grid = (rand(N) > 0.5)*2 - 1;
+grid = (rand(cells_on_side_of_grid) > 0.5)*2 - 1;
 
 %% Evolve the system for a fixed number of steps
-for i=1:steps,
+for i=1:number_of_potential_spin_flips,
 
   % Calculate the number of neighbors of each cell
-  neighbors = circshift(grid, [ 0 1]) + ...
-    circshift(grid, [ 0 -1]) + ...
-    circshift(grid, [ 1 0]) + ...
-    circshift(grid, [-1 0]);
+  neighbors = circshift(grid, [ 0 1]) + circshift(grid, [ 0 -1]) + circshift(grid, [ 1 0]) + circshift(grid, [-1 0]);
 
   % Calculate the change in energy of flipping a spin
-  DeltaE = 2 * J * (grid .* neighbors);
+  change_in_energy = 2 * J * (grid .* neighbors);
 
   % Calculate the transition probabilities
-  p_trans = exp(-DeltaE/(k * T));
+  probability_of_transmission = exp(-change_in_energy/(boltzmans_constant * temperature));
 
   % Decide which transitions will occur
-  transitions = (rand(N) < p_trans ).*(rand(N) < 0.1) * -2 + 1;
+  transitions = (rand(cells_on_side_of_grid) < probability_of_transmission ).*(rand(cells_on_side_of_grid) < 0.1) * -2 + 1;
 
   % Perform the transitions
   grid = grid .* transitions;
 
   % Sum up our variables of interest
-  M = sum(sum(grid));
-  E = -sum(sum(DeltaE))/2;
+  total_magnetic_field = sum(sum(grid));
+  total_energy = -sum(sum(change_in_energy))/2;
 
 end
