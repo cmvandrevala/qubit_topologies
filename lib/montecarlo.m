@@ -23,7 +23,7 @@ klein_energy_per_site = [];
 twist_magnetic_field_per_site = [];
 twist_energy_per_site = [];
 
-for count = 1:number_of_random_temperatures_to_test,
+parfor count = 1:number_of_random_temperatures_to_test,
 
   temperature = determine_temperature;
   simulation_temperature = [simulation_temperature temperature];
