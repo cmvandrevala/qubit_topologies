@@ -24,7 +24,7 @@ for i=1:number_of_potential_spin_flips,
   end
 
   % Calculate the change in energy of flipping a spin
-  change_in_energy = 2 * J * (grid .* neighbors);
+  change_in_energy = 2 * interaction_strength * (grid .* neighbors);
 
   % Calculate the transition probabilities
   probability_of_transition = exp(-change_in_energy/(boltzmans_constant * temperature));

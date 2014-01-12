@@ -10,6 +10,7 @@ for i=1:number_of_potential_spin_flips,
 
   % Calculate the number of neighbors of each cell
   neighbors = circshift(grid, [ 0 1]) + circshift(grid, [ 0 -1]) + circshift(grid, [ 1 0]) + circshift(grid, [-1 0]);
+  
   neighbors(1,1) = grid(1,2) + grid(2,1) + grid(1,cells_on_side_of_grid) + grid(cells_on_side_of_grid,cells_on_side_of_grid);
   neighbors(1,cells_on_side_of_grid) = grid(1,cells_on_side_of_grid-1) + grid(1,1) + grid(2,cells_on_side_of_grid) + grid(cells_on_side_of_grid,1);
   neighbors(cells_on_side_of_grid,1) = grid(cells_on_side_of_grid,cells_on_side_of_grid) + grid(cells_on_side_of_grid,2) + grid(cells_on_side_of_grid-1,1) + grid(1,cells_on_side_of_grid);

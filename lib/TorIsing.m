@@ -12,7 +12,7 @@ for i=1:number_of_potential_spin_flips,
   neighbors = circshift(grid, [ 0 1]) + circshift(grid, [ 0 -1]) + circshift(grid, [ 1 0]) + circshift(grid, [-1 0]);
 
   % Calculate the change in energy of flipping a spin
-  change_in_energy = 2 * J * (grid .* neighbors);
+  change_in_energy = 2 * interaction_strength * (grid .* neighbors);
 
   % Calculate the transition probabilities
   probability_of_transmission = exp(-change_in_energy/(boltzmans_constant * temperature));
