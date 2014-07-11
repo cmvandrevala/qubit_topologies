@@ -2,10 +2,10 @@ function [total_magnetic_field, total_energy] = TorIsing(temperature)
 
 declare_parameters
 
-%% Generate a Random Initial Configuration
+% Generate a Random Initial Configuration
 grid = (rand(cells_on_side_of_grid) > 0.5)*2 - 1;
 
-%% Evolve the system for a fixed number of steps
+% Evolve the system for a fixed number of steps
 for i=1:number_of_potential_spin_flips,
 
   % Calculate the number of neighbors of each cell
