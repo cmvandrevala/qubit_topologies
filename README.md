@@ -1,5 +1,5 @@
-Mobius Qubits
-=============
+Qubit Topologies
+================
 
 
 Background
